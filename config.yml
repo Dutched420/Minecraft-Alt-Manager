@@ -1,0 +1,29 @@
+# DUTCHED's ALT MANAGER
+
+owner:
+# Syntax: - 443762652259418132 (Discord ID), there can be multiple owners
+  - 443762652259418132
+
+discord:
+# Bot token can be found where you created your bot
+  botToken: ""
+  prefix: "!"
+
+format:
+# Customize your embeds
+  successTitle: "Success!"
+  errorTitle: "Error!"
+  footer: "Dutched's Alt Manager v1.0.0"
+  embedColor: "#9702ed"
+
+minecraft:
+# Pick either mojang/microsoft (make sure its lowercased!)
+  auth: "mojang"
+  serverIP: "play.monke.com"
+  serverPort: "25565"
+  version: "1.8.9"
+  joinCommand: "/jungle"
+
+alts:
+# Syntax: - AltEmail@email.com:Password123!
+- GetDutched@EpicAltManager.com:Monke420@

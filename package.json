@@ -1,0 +1,24 @@
+{
+  "name": "alt-manager-electron",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "discord.js": "^13.6.0",
+    "electron": "^17.1.0",
+    "electron-reloader": "^1.2.3",
+    "js-yaml": "^4.1.0",
+    "mineflayer": "^4.0.0",
+    "nodemon": "^2.0.15",
+    "@discordjs/rest": "^0.2.0-canary.0"
+  }
+}
