@@ -1,7 +1,7 @@
 /**
  * @file Main file
  * @author Dutch
- * @version 1.2.0
+ * @version 1.2.1
  */
 
 // Requirements
@@ -12,6 +12,8 @@ const yaml = require("js-yaml");
 const chalk = require("chalk");
 
 let config = yaml.load(fs.readFileSync(`${process.cwd()}/config.yml`, "utf8"));
+var promise = Promise.resolve();
+
 const client = new Client({
     allowedMentions: { parse: ['users', 'roles'] },
     fetchAllMembers: false,
@@ -25,12 +27,13 @@ client.onlineBots = [];
 client.bots = [];
 
 // creating the bots 
-function createBots () { 
-    for (eachAlt of config.alts) {
-        
-        const part = eachAlt.split(":", 2);
+async function createBots () { 
+    config.alts.forEach(function (alt) {
+        promise = promise.then(function () {
 
+        const part = alt.split(":", 2);
         let bot;
+
             bot = mineflayer.createBot({
                 username: part[0],
                 password: part[1],
@@ -38,32 +41,36 @@ function createBots () {
                 port: config.minecraft.serverPort,
                 version: config.minecraft.version,
                 auth: config.minecraft.auth
-        });
+            });
 
-        bot.on("login", () => {
-            // Without a check this will execute twice
-            if(!client.onlineBots.includes(bot.username)) {
-                bot.chat(config.minecraft.joinCommand);
-                client.onlineBots.push(bot.username);
-                client.bots.push(bot);
-                console.log(chalk.green.bold(`[ALTS]: ${bot.username} logged in!`));
-            };
-        });
+            bot.on("login", () => {
+                // Without a check this will execute twice
+                if(!client.onlineBots.includes(bot.username)) {
+                    bot.chat(config.minecraft.joinCommand);
+                    client.onlineBots.push(bot.username);
+                    client.bots.push(bot);
+                    console.log(chalk.green.bold(`[ALTS]: ${bot.username} logged in!`));
+                }
+            })
 
-        bot.on("end", () => {
-            console.log(chalk.red.bold(`[ALTS]: ${bot.username} logged off!`));
-            client.onlineBots.splice(client.onlineBots.indexOf(bot.username), 1);
-        });
+            bot.on("end", () => {
+                console.log(chalk.red.bold(`[ALTS]: ${bot.username} logged off!`));
+                client.onlineBots.splice(client.onlineBots.indexOf(bot.username), 1);
+            })
 
-        bot.on("death", () => {
-            console.log(chalk.red.bold(`[ALTS]: ${bot.username} died! Respawning it..`));
-        });
+            bot.on("death", () => {
+                console.log(chalk.red.bold(`[ALTS]: ${bot.username} died! Respawning it..`));
+            })
 
-        bot.on("kicked", () => {
-            console.log(chalk.red.bold(`[ALTS]: ${bot.username} got kicked! Relogging it..`));
-        });
+            bot.on("kicked", () => {
+                console.log(chalk.red.bold(`[ALTS]: ${bot.username} got kicked! Relogging it..`));
+            })
 
-    };
+            return new Promise(function (resolve) {
+                setTimeout(resolve, config.minecraft.joinDelay * 1000);
+            });
+        });
+    });
 };
 
 createBots();

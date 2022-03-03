@@ -13,17 +13,18 @@ format:
 # Customize your embeds
   successTitle: "Success!"
   errorTitle: "Error!"
-  footer: "Dutched's Alt Manager v1.0.0"
+  footer: "Dutched's Alt Manager v1.2.1"
   embedColor: "#9702ed"
 
 minecraft:
 # Pick either mojang/microsoft (make sure its lowercased!)
   auth: "mojang"
-  serverIP: "play.monke.com"
+  serverIP: "play.crystaldev.co"
   serverPort: "25565"
   version: "1.8.9"
-  joinCommand: "/jungle"
+  joinCommand: "/ruby"
+  joinDelay: 3 # Time in between alts joining (in seconds)
 
 alts:
-# Syntax: - AltEmail@email.com:Password123!
-- GetDutched@EpicAltManager.com:Monke420@
+# Example: - AltEmail@email.com:Password123!
+- AltEmail@email.com:Password123!
