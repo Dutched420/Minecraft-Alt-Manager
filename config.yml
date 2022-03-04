@@ -24,6 +24,7 @@ minecraft:
   version: "1.8.9"
   joinCommand: "/ruby"
   joinDelay: 3 # Time in between alts joining (in seconds)
+  hideErrors: false # To hide the "unknown transaction" warning, if you have trouble getting the bots up you might want to change this to false
 
 alts:
 # Example: - AltEmail@email.com:Password123!
