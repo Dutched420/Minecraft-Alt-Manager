@@ -26,7 +26,7 @@ client.aliases = new Collection();
 client.onlineBots = [];
 client.bots = [];
 
-// creating the bots 
+// Creating the bots 
 async function createBots () { 
     config.alts.forEach(function (alt) {
         promise = promise.then(function () {
@@ -41,6 +41,9 @@ async function createBots () {
                 port: config.minecraft.serverPort,
                 version: config.minecraft.version,
                 auth: config.minecraft.auth
+                hideErrors: config.minecraft.hideErrors,
+                colorsEnabled: false,
+                viewDistance: "tiny",
             });
 
             bot.on("login", () => {
