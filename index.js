@@ -40,7 +40,7 @@ async function createBots () {
                 host: config.minecraft.serverIP,
                 port: config.minecraft.serverPort,
                 version: config.minecraft.version,
-                auth: config.minecraft.auth
+                auth: config.minecraft.auth,
                 hideErrors: config.minecraft.hideErrors,
                 colorsEnabled: false,
                 viewDistance: "tiny",
