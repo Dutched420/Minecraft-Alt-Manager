@@ -1,3 +1,16 @@
+> Dutched's Alt Manager
 Thanks for checking out my alt manager.
 I will probably not update this frequently.
 If you run in to any bugs let me know on Discord: monke master#0420
+
+> Tips
+How to add a all of my alts easily?
+1. Open config.yml using visual studio code
+2. Paste in your alts
+3. Select all your alts
+4. ALT + SHIFT + I
+5. Press HOME twice
+6. You will now see the selector at the beginning of every line
+7. Press - + SPACE
+8. All your alts will now have a "-" in front of them
+9. Ready to run!
