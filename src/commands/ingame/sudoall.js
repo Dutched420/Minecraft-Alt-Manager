@@ -14,7 +14,7 @@ module.exports = {
     
     run : async (client, message, args) => {
         
-        const bots = client.bots
+        const bots = process.bots
         
         for (eachBot of bots) {
             eachBot.chat(args.join(" "));

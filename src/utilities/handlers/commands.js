@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-module.exports = async (client, bots) => {
+module.exports = async (client) => {
     fs.readdir(`${__dirname}/../../commands/`, (err, files) => {
         if (err) console.log(err);
         files.forEach(dir => {

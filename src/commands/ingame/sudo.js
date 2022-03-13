@@ -14,7 +14,7 @@ module.exports = {
     
     run : async (client, message, args) => {
 
-        const bots = client.bots;
+        const bots = process.bots;
         const usernames = bots.map(bot => bot.username);
         let botInfo = "";
         
