@@ -1,6 +1,7 @@
 const chalk = require("chalk");
 const axios = require("axios");
 const fs = require("fs");
+const yaml = require("js-yaml");
 let config = yaml.load(fs.readFileSync(`${process.cwd()}/config.yml`, "utf8"));
 
 module.exports = async (client) => {
