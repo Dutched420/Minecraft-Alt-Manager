@@ -14,7 +14,7 @@ owner:
 startup:
 # Manage your start-up
   verify: true # Check if you have setup the bot correctly
-  versionCheck: true # Check if you are running the latest version, does not exit if you are
+  versionCheck: true # Check if you are running the latest version
 
 discord:
 # Manage your discord settings
