@@ -10,7 +10,7 @@ module.exports = async (client) => {
     if(config.startup.versionCheck) {
         axios.get("http://api.github.com/repos/Dutched420/Minecraft-Alt-Manager/releases")
             .then(function (response) {
-            if(response.data[0].name.replace(/\D/g, "") < client.version) {
+            if(response.data[0].name.replace(/\D/g, "") > client.version.replace(/\D/g, "")) {
                 console.log(chalk.red(`[VERSION]: Outdated! Latest download: ${response.data[0].zipball_url}`));
             };
         });
@@ -18,7 +18,7 @@ module.exports = async (client) => {
 
     console.log(chalk.yellow("             __,__\r\n    .--.  .-\"     \"-.  .--.\r\n   \/ .. \\\/  .-. .-.  \\\/ .. \\\r\n  | |  \'|  \/   Y   \\  |\'  | |\r\n  | \\   \\  \\ 0 | 0 \/  \/   \/ |\r\n   \\ \'- ,\\.-\"`` ``\"-.\/, -\' \/\r\n    `\'-\' \/_   ^ ^   _\\ \'-\'`\r\n        |  \\._   _.\/  |\r\n        \\   \\ `~` \/   \/\r\n         \'._ \'-=-\' _.\'\r\n            \'~---~\'"))
     console.log(chalk.white(" ────────────────────────────────────────────────────────────"))
-    console.log(chalk.white(`  [${chalk.greenBright("+")}] Dutched's Alt Manager ${chalk.yellow(`1.5.0`)}`));
+    console.log(chalk.white(`  [${chalk.greenBright("+")}] Dutched's Alt Manager ${chalk.yellow(`1.5.1`)}`));
     console.log(chalk.white(`  [${chalk.greenBright("+")}] Github: ${chalk.yellow(`https://github.com/Dutched420/Minecraft-Alt-Manager`)}`));
     console.log(chalk.white(" ────────────────────────────────────────────────────────────"))
     console.log(
