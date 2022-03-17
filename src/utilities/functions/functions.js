@@ -2,6 +2,7 @@ const chalk = require("chalk");
 const mineflayer = require("mineflayer"); 
 const fs = require("fs");
 const yaml = require("js-yaml");
+const sleep = (waitTimeInMs) => new Promise(resolve => setTimeout(resolve, waitTimeInMs));
 
 let config = yaml.load(fs.readFileSync(`${process.cwd()}/config.yml`, "utf8"));
 var promise = Promise.resolve();
@@ -25,10 +26,12 @@ module.exports.createBots = () => {
             bot.on("login", () => {
                 // Without a check this will execute twice
                 if(!process.onlineBots.includes(bot.username)) {
-                    bot.chat(config.minecraft.joinCommand);
-                    process.onlineBots.push(bot.username);
-                    process.bots.push(bot);
-                    console.log(chalk.green.bold(`[ALTS]: ${bot.username} logged in`));
+                    sleep(config.minecraft.joinCommandDelay * 1000).then(() => {
+						bot.chat(config.minecraft.joinCommand);
+						process.onlineBots.push(bot.username);
+						process.bots.push(bot);
+						console.log(chalk.green.bold(`[ALTS]: ${bot.username} logged in`));
+					});
                 };
             });
             bot.on("end", () => {
