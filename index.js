@@ -24,7 +24,7 @@ const client = new Client({
 
 client.commands = new Collection();
 client.aliases = new Collection();
-client.version = "1.5.0"
+client.version = "1.5.1"
 process.onlineBots = [];
 process.bots = [];
 
