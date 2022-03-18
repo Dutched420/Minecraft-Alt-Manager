@@ -1,7 +1,7 @@
 /**
  * @file Main file
  * @author Dutch
- * @version 1.5.1
+ * @version 1.5.2
  */
 
 // Requirements
@@ -24,7 +24,7 @@ const client = new Client({
 
 client.commands = new Collection();
 client.aliases = new Collection();
-client.version = "1.5.1"
+client.version = "1.5.2"
 process.onlineBots = [];
 process.bots = [];
 
