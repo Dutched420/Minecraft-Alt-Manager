@@ -25,7 +25,7 @@ format:
 # Customize your embeds
   successTitle: "Success!"
   errorTitle: "Error!"
-  footer: "Dutched's Alt Manager v1.5.1"
+  footer: "Dutched's Alt Manager v1.5.2"
   embedColor: "#9702ed"
 
 minecraft:
