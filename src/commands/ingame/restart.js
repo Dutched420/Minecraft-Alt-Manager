@@ -42,6 +42,7 @@ module.exports = {
         });
 
         const collector = msg.channel.createMessageComponentCollector({ time: 15000 });
+        let restart = false;
         
         collector.on("collect", async i => {
             if(i.customId === "restart") {
@@ -49,12 +50,13 @@ module.exports = {
                 functions.createBots();
                 const embed = new MessageEmbed({
                     title: `Restarting`,
-                    description: `Restart issued by: ${message.author}\nLogging on **${config.alts.length}** alts. ETA: ${Math.floor(config.alts.length * config.minecraft.joinDelay)} seconds`,
+                    description: `Restart issued by: ${message.author}\nLogging on **${config.alts.length}** alts. ETA: **${Math.floor(config.alts.length * config.minecraft.joinDelay)}** seconds`,
                     color: config.format.embedColor,
                     footer: {
                         text: config.format.footer
                     },
                 });
+                restart = true;
                 return msg.edit({
                     embeds: [embed], 
                     components: []
@@ -77,6 +79,7 @@ module.exports = {
         });
 
         collector.on("end", async i => {
+            if(restart) return;
             const embed = new MessageEmbed({
                 title: `Restart Cancelled`,
                 description: `${message.author} took to long to respond`,

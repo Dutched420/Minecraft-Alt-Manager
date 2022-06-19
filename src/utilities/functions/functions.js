@@ -1,13 +1,20 @@
 const chalk = require("chalk");
+const axios = require("axios");
 const mineflayer = require("mineflayer"); 
 const fs = require("fs");
 const yaml = require("js-yaml");
+const functions = require("../functions/functions.js")
 const sleep = (waitTimeInMs) => new Promise(resolve => setTimeout(resolve, waitTimeInMs));
 
 let config = yaml.load(fs.readFileSync(`${process.cwd()}/config.yml`, "utf8"));
 var promise = Promise.resolve();
 
-module.exports.createBots = () => {
+module.exports.destroyBots = () => {
+    process.bots = [];
+    process.onlineBots = [];
+};
+
+module.exports.createBots = async () => {
     config.alts.forEach(function (alt) {
         promise = promise.then(function () {
             const part = alt.split(":", 2);
@@ -30,19 +37,30 @@ module.exports.createBots = () => {
 						bot.chat(config.minecraft.joinCommand);
 						process.onlineBots.push(bot.username);
 						process.bots.push(bot);
-						console.log(chalk.green.bold(`[ALTS]: ${bot.username} logged in`));
+                        console.log(`  [${chalk.hex("#00FF00").bold("Alts")}]: ${bot.username} logged in`);
 					});
                 };
             });
             bot.on("end", () => {
-                console.log(chalk.red.bold(`[ALTS]: ${bot.username} logged off`));
-                process.onlineBots.splice(process.onlineBots.indexOf(bot.username), 1);
+                console.log(`  [${chalk.hex("#FF0000").bold("Alts")}]: ${bot.username} logged off, relogging`);
+                functions.destroyBots();
+                return functions.createBots();
             });
             bot.on("death", () => {
-                console.log(chalk.red.bold(`[ALTS]: ${bot.username} died, respawning it..`));
+                console.log(`  [${chalk.hex("#FF0000").bold("Alts")}]: ${bot.username} died, respawning`);
+                functions.destroyBots();
+                return functions.createBots();
             });
             bot.on("kicked", () => {
-                console.log(chalk.red.bold(`[ALTS]: ${bot.username} got kicked, relogging it..`));
+                console.log(`  [${chalk.hex("#FF0000").bold("Alts")}]: ${bot.username} got kicked, relogging`);
+                functions.destroyBots();
+                return functions.createBots();
+            });
+            bot.on("error", (e) => {
+                console.log(e);
+                console.log(`  [${chalk.hex("#FF0000").bold("Alts")}]: An error occured, restarting`);
+                functions.destroyBots();
+                return functions.createBots();
             });
             return new Promise(function (resolve) {
                 setTimeout(resolve, config.minecraft.joinDelay * 1000);
@@ -51,14 +69,15 @@ module.exports.createBots = () => {
     });
 };
 
-module.exports.destroyBots = () => {
-    process.bots = [];
-    process.onlineBots = [];
+module.exports.restart = async () => {
+    setTimeout(() => {
+        this.destroyBots();
+        this.createBots();
+    }, config.autoRestartTime);
 };
 
-
 // Small verification function, I got way too many DM's of people that had an old NodeJS version/messed up config
-module.exports.verify = () => {
+module.exports.verify = async () => {
     console.log("Verification started");
     console.log("Verifying NodeJS version");
     if(process.version < "v16.0.0") {
